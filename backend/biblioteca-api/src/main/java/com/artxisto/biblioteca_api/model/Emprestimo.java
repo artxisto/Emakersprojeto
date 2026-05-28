@@ -8,6 +8,7 @@ public class Emprestimo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private boolean devolvido;
 
     @ManyToOne
     @JoinColumn(name = "pessoa_id")
@@ -38,5 +39,13 @@ public class Emprestimo {
 
     public void setLivro(Livro livro) {
         this.livro = livro;
+    }
+
+    public boolean isDevolvido() {
+    return devolvido;
+    }
+
+    public void setDevolvido(boolean devolvido) {
+    this.devolvido = devolvido;
     }
 }

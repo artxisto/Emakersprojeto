@@ -10,5 +10,5 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
 
     boolean existsByPessoaAndLivro(Pessoa pessoa, Livro livro);
 
-    boolean existsByLivroId(Long livroId);
+    boolean existsByLivroIdAndDevolvidoFalse(Long livroId);
 }

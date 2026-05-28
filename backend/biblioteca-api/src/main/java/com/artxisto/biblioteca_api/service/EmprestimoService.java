@@ -45,13 +45,11 @@ public class EmprestimoService {
             throw new RuntimeException("Livro não encontrado");
         }
 
-        if (emprestimoRepository.existsByPessoaAndLivro(pessoa, livro)) {
-            throw new RuntimeException("Esse empréstimo já existe");
-        }
-
-        if (emprestimoRepository.existsByLivroId(livro.getId())) {
+        if (emprestimoRepository.existsByLivroIdAndDevolvidoFalse(livro.getId())) {
             throw new RuntimeException("Livro já emprestado");
         }
+
+        emprestimo.setDevolvido(false);
 
         return emprestimoRepository.save(emprestimo);
     }
@@ -59,4 +57,11 @@ public class EmprestimoService {
     public void deletarEmprestimo(Long id) {
         emprestimoRepository.deleteById(id);
     }
+
+    public Emprestimo devolverLivro(Long id) {
+
+        Emprestimo emprestimo = emprestimoRepository.findById(id).orElseThrow(() -> new RuntimeException("Empréstimo não encontrado"));
+        emprestimo.setDevolvido(true);
+        return emprestimoRepository.save(emprestimo);
+}
 }

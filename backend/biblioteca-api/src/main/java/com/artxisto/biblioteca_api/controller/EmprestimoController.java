@@ -31,4 +31,9 @@ public class EmprestimoController {
     public void deletarEmprestimo(@PathVariable Long id) {
         emprestimoService.deletarEmprestimo(id);
     }
+
+    @PutMapping("/{id}/devolver")
+    public Emprestimo devolverLivro(@PathVariable Long id) {
+        return emprestimoService.devolverLivro(id);
+}
 }
