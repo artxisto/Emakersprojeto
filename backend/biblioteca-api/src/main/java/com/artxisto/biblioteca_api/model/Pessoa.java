@@ -15,13 +15,13 @@ public class Pessoa {
     @Column(length = 100)
     private String nome;
 
-    @Column(length = 11)
+    @Column(length = 11, unique = true)
     private String cpf;
 
     @Column(length = 9)
     private String cep;
 
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
     private String email;
 
     @Column(length = 100)
