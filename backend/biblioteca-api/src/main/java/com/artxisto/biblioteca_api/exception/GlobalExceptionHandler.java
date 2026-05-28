@@ -21,4 +21,15 @@ public class GlobalExceptionHandler {
                         "erro", "CPF ou email já cadastrado"
                 ));
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, String>> tratarRuntime(
+            RuntimeException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of(
+                        "erro", ex.getMessage()
+                ));
+    }
 }

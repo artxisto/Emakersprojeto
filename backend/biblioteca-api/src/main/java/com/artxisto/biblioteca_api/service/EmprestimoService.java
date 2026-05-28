@@ -31,6 +31,10 @@ public class EmprestimoService {
             throw new RuntimeException("Esse empréstimo já existe");
         }
 
+        if (emprestimoRepository.existsByLivroId(livro.getId())) {
+            throw new RuntimeException("Livro já emprestado");
+        }
+
         return emprestimoRepository.save(emprestimo);
     }
 
