@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/livros")
+@Tag(name = "Livro", description = "Operações relacionadas aos livros")
 public class LivroController {
 
     private final LivroService livroService;
@@ -19,19 +22,19 @@ public class LivroController {
         this.livroService = livroService;
     }
 
-    // LISTAR LIVROS
+    @Operation(summary = "Listar todos os livros")
     @GetMapping
     public List<Livro> listarLivros() {
         return livroService.listarLivros();
     }
 
-    // CRIAR LIVRO
+    @Operation(summary = "Cadastrar um livro")
     @PostMapping
     public Livro criarLivro(@Valid @RequestBody Livro livro) {
         return livroService.salvarLivro(livro);
     }
 
-    // ATUALIZAR LIVRO
+    @Operation(summary = "Atualizar um livro")
     @PutMapping("/{id}")
     public Livro atualizarLivro(@PathVariable Long id,
                                 @RequestBody Livro livro) {
@@ -39,7 +42,7 @@ public class LivroController {
         return livroService.atualizarLivro(id, livro);
     }
 
-    // DELETAR LIVRO
+    @Operation(summary = "Deletar um livro")
     @DeleteMapping("/{id}")
     public void deletarLivro(@PathVariable Long id) {
         livroService.deletarLivro(id);

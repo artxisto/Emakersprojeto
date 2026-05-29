@@ -7,9 +7,12 @@ import com.artxisto.biblioteca_api.repository.PessoaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.artxisto.biblioteca_api.service.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Autenticação", description = "Operações relacionadas à autenticação de usuários")
 public class AuthController {
 
     private final PessoaRepository pessoaRepository;
@@ -22,6 +25,7 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Operation(summary = "Realizar login")
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest loginRequest) {
 
