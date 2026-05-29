@@ -3,6 +3,8 @@ package com.artxisto.biblioteca_api.controller;
 import com.artxisto.biblioteca_api.model.Emprestimo;
 import com.artxisto.biblioteca_api.service.EmprestimoService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class EmprestimoController {
     }
 
     @PostMapping
-    public Emprestimo criarEmprestimo(@RequestBody Emprestimo emprestimo) {
+    public Emprestimo criarEmprestimo(@Valid @RequestBody Emprestimo emprestimo) {
         return emprestimoService.salvarEmprestimo(emprestimo);
     }
 

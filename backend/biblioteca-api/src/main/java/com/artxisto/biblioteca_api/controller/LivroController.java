@@ -5,6 +5,7 @@ import com.artxisto.biblioteca_api.service.LivroService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class LivroController {
 
     // CRIAR LIVRO
     @PostMapping
-    public Livro criarLivro(@RequestBody Livro livro) {
+    public Livro criarLivro(@Valid @RequestBody Livro livro) {
         return livroService.salvarLivro(livro);
     }
 

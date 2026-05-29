@@ -3,6 +3,7 @@ package com.artxisto.biblioteca_api.controller;
 import com.artxisto.biblioteca_api.model.Pessoa;
 import com.artxisto.biblioteca_api.service.PessoaService;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class PessoaController {
     }
 
     @PostMapping
-    public Pessoa criarPessoa(@RequestBody Pessoa pessoa) {
+    public Pessoa criarPessoa(@Valid @RequestBody Pessoa pessoa) {
         return pessoaService.salvarPessoa(pessoa);
     }
 

@@ -1,5 +1,9 @@
 package com.artxisto.biblioteca_api.model;
 
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,18 +17,24 @@ public class Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 
     @Column(length = 100)
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
 
     @Column(length = 11, unique = true)
+    @NotBlank(message = "CPF é obrigatório")
     private String cpf;
 
     @Column(length = 9)
     private String cep;
 
     @Column(length = 100, unique = true)
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email inválido")
     private String email;
 
     @Column(length = 100)
+    @NotBlank(message = "Senha é obrigatória")
+    @Size(min = 6, message = "Senha deve ter pelo menos 6 caracteres")
     private String senha;
     
     public Pessoa() {

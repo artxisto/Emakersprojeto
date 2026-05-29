@@ -1,5 +1,6 @@
 package com.artxisto.biblioteca_api.model;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,9 +15,11 @@ public class Livro {
     private Long id;
     
     @Column(length = 100)
+    @NotBlank(message = "Título é obrigatório")
     private String titulo;
 
     @Column(length = 100)
+    @NotBlank(message = "Autor é obrigatório")
     private String autor;
 
     public Livro() {
