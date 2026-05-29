@@ -27,6 +27,18 @@ public class Pessoa {
     @Column(length = 9)
     private String cep;
 
+    @Column(length = 150)
+    private String logradouro;
+
+    @Column(length = 100)
+    private String bairro;
+
+    @Column(length = 100)
+    private String cidade;
+
+    @Column(length = 2)
+    private String uf;
+
     @Column(length = 100, unique = true)
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email inválido")
@@ -87,4 +99,38 @@ public class Pessoa {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public String getLogradouro() {
+    return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+    this.logradouro = logradouro;
+    }
+
+    public String getBairro() {
+    return bairro;
+    }
+
+    public void setBairro(String bairro) {
+    this.bairro = bairro;
+    }
+
+    public String getCidade() {
+    return cidade;
+    }
+
+    public void setCidade(String cidade) {
+    this.cidade = cidade;
+    }
+
+    public String getUf() {
+    return uf;
+    }
+
+    public void setUf(String uf) {
+    this.uf = uf;
+    }
+
+
 }
