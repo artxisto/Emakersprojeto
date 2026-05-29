@@ -2,12 +2,10 @@ package com.artxisto.biblioteca_api.service;
 
 import com.artxisto.biblioteca_api.model.Pessoa;
 import com.artxisto.biblioteca_api.repository.PessoaRepository;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.artxisto.biblioteca_api.dto.ViaCepResponse;
-
 import java.util.List;
 
 @Service

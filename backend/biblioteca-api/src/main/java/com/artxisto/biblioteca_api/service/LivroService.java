@@ -3,7 +3,6 @@ package com.artxisto.biblioteca_api.service;
 import com.artxisto.biblioteca_api.model.Livro;
 import com.artxisto.biblioteca_api.repository.LivroRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

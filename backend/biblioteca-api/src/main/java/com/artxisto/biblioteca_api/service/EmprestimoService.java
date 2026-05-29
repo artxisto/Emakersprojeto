@@ -6,9 +6,7 @@ import com.artxisto.biblioteca_api.model.Pessoa;
 import com.artxisto.biblioteca_api.repository.EmprestimoRepository;
 import com.artxisto.biblioteca_api.repository.LivroRepository;
 import com.artxisto.biblioteca_api.repository.PessoaRepository;
-
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

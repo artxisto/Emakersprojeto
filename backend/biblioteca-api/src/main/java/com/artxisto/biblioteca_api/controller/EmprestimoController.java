@@ -2,13 +2,10 @@ package com.artxisto.biblioteca_api.controller;
 
 import com.artxisto.biblioteca_api.model.Emprestimo;
 import com.artxisto.biblioteca_api.service.EmprestimoService;
-
 import jakarta.validation.Valid;
-
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import java.util.List;
 
 @RestController

@@ -3,7 +3,6 @@ package com.artxisto.biblioteca_api.controller;
 import com.artxisto.biblioteca_api.dto.LoginRequest;
 import com.artxisto.biblioteca_api.model.Pessoa;
 import com.artxisto.biblioteca_api.repository.PessoaRepository;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.artxisto.biblioteca_api.service.JwtService;
