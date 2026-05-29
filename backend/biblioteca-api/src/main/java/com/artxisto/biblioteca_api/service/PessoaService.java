@@ -2,6 +2,8 @@ package com.artxisto.biblioteca_api.service;
 
 import com.artxisto.biblioteca_api.model.Pessoa;
 import com.artxisto.biblioteca_api.repository.PessoaRepository;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.artxisto.biblioteca_api.dto.ViaCepResponse;
@@ -13,10 +15,12 @@ public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
     private final RestTemplate restTemplate;
+    private final PasswordEncoder passwordEncoder;
 
-    public PessoaService(PessoaRepository pessoaRepository, RestTemplate restTemplate) {
+    public PessoaService(PessoaRepository pessoaRepository, RestTemplate restTemplate, PasswordEncoder passwordEncoder) {
         this.pessoaRepository = pessoaRepository;
         this.restTemplate = restTemplate;
+        this.passwordEncoder = passwordEncoder;
     }
 
     private void preencherEnderecoPorCep(Pessoa pessoa) {
@@ -37,6 +41,8 @@ public class PessoaService {
     }
 
     public Pessoa salvarPessoa(Pessoa pessoa) {
+
+        pessoa.setSenha(passwordEncoder.encode(pessoa.getSenha()));
         preencherEnderecoPorCep(pessoa);
         return pessoaRepository.save(pessoa);
     }
@@ -49,7 +55,7 @@ public class PessoaService {
         pessoa.setCpf(pessoaAtualizada.getCpf());
         pessoa.setCep(pessoaAtualizada.getCep());
         pessoa.setEmail(pessoaAtualizada.getEmail());
-        pessoa.setSenha(pessoaAtualizada.getSenha());
+        pessoa.setSenha(passwordEncoder.encode(pessoaAtualizada.getSenha()));
 
         preencherEnderecoPorCep(pessoa);
 
