@@ -1,41 +1,73 @@
 package com.artxisto.biblioteca_api.service;
 
-import java.time.Instant;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
 import com.artxisto.biblioteca_api.model.Pessoa;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+
 @Service
 public class JwtService {
 
-    private final JwtEncoder jwtEncoder;
+    @Value("${jwt.secret}")
+    private String secret;
 
     @Value("${jwt.expiration}")
     private long expiration;
 
-    public JwtService(JwtEncoder jwtEncoder) {
-        this.jwtEncoder = jwtEncoder;
-    }
-
     public String generateToken(Pessoa pessoa) {
 
-        Instant now = Instant.now();
+        Key key = Keys.hmacShaKeyFor(
+                secret.getBytes(StandardCharsets.UTF_8));
 
-        JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer("biblioteca-api")
-                .issuedAt(now)
-                .expiresAt(now.plusMillis(expiration))
+        Date now = new Date();
+
+        Date expiryDate = new Date(
+                now.getTime() + expiration);
+
+        return Jwts.builder()
                 .subject(pessoa.getEmail())
                 .claim("nome", pessoa.getNome())
-                .build();
+                .issuedAt(now)
+                .expiration(expiryDate)
+                .signWith(key)
+                .compact();
+    }
 
-        return jwtEncoder
-                .encode(JwtEncoderParameters.from(claims))
-                .getTokenValue();
+    public String extractUsername(String token) {
+
+        Key key = Keys.hmacShaKeyFor(
+                secret.getBytes(StandardCharsets.UTF_8));
+
+        return Jwts.parser()
+                    .verifyWith((javax.crypto.SecretKey) key)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload()
+                    .getSubject();
+    }
+
+    public boolean isTokenValid(String token) {
+
+        try {
+            Key key = Keys.hmacShaKeyFor(
+                    secret.getBytes(StandardCharsets.UTF_8));
+
+            
+            Jwts.parser()
+                    .verifyWith((javax.crypto.SecretKey) key)
+                    .build()
+                    .parseSignedClaims(token);
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
