@@ -34,8 +34,13 @@ public class EmprestimoService {
 
     public Emprestimo salvarEmprestimo(Emprestimo emprestimo) {
 
-        Pessoa pessoa = emprestimo.getPessoa();
-        Livro livro = emprestimo.getLivro();
+        Pessoa pessoa = pessoaRepository.findById(
+        emprestimo.getPessoa().getId())
+        .orElseThrow(() -> new RuntimeException("Pessoa não encontrada"));
+        
+        Livro livro = livroRepository.findById(
+        emprestimo.getLivro().getId())
+        .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
 
         if (!pessoaRepository.existsById(pessoa.getId())) {
             throw new RuntimeException("Pessoa não encontrada");
@@ -50,6 +55,8 @@ public class EmprestimoService {
         }
 
         emprestimo.setDevolvido(false);
+        emprestimo.setPessoa(pessoa);
+        emprestimo.setLivro(livro);
 
         return emprestimoRepository.save(emprestimo);
     }
